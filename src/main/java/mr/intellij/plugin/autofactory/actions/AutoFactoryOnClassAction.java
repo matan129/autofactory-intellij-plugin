@@ -7,11 +7,8 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
-
 import static com.intellij.codeInsight.generation.OverrideImplementUtil.getContextClass;
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.createFormattedAnnotation;
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
+import static mr.intellij.plugin.autofactory.utils.PsiUtils.*;
 
 /**
  * Provides a way to add {@code @AutoFactory} annotation to a class.
@@ -23,14 +20,12 @@ public class AutoFactoryOnClassAction extends BaseAction {
 
             @Override
             protected boolean doInvoke(@NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
-                return Optional.ofNullable(getContextClass(project, editor, file, false))
-                        .map(this::addAnnotation)
-                        .isPresent();
+                return addAnnotation(getContextClass(project, editor, file, false));
             }
 
             @SuppressWarnings("ConstantConditions")
-            private boolean addAnnotation(@NotNull PsiClass psiClass) {
-                if (hasAutoFactory(psiClass)) {
+            private boolean addAnnotation(PsiClass psiClass) {
+                if (psiClass == null || hasAutoFactory(psiClass)) {
                     return false;
                 }
 
