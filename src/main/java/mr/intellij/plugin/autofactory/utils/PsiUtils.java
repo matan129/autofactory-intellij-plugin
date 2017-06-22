@@ -2,6 +2,7 @@ package mr.intellij.plugin.autofactory.utils;
 
 import com.google.auto.factory.AutoFactory;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.TestSourcesFilter;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -38,6 +39,10 @@ public class PsiUtils {
                                               @NotNull Class<? extends Annotation> annotationClass) {
 
         return psiModifierList != null && psiModifierList.findAnnotation(annotationClass.getName()) != null;
+    }
+
+    public static boolean isInTestFile(@NotNull PsiElement element) {
+        return TestSourcesFilter.isTestSources(element.getContainingFile().getVirtualFile(), element.getProject());
     }
 
     private static void shortenReference(@NotNull PsiModifierListOwner psiModifierListOwner,

@@ -2,11 +2,14 @@ package mr.intellij.plugin.autofactory.inspections.direct.instantiation;
 
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.openapi.roots.TestSourcesFilter;
-import com.intellij.psi.*;
+import com.intellij.psi.JavaElementVisitor;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiJavaCodeReferenceElement;
+import com.intellij.psi.PsiNewExpression;
 import lombok.RequiredArgsConstructor;
 
 import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
+import static mr.intellij.plugin.autofactory.utils.PsiUtils.isInTestFile;
 
 @RequiredArgsConstructor
 class DirectInstantiationInspectionVisitor extends JavaElementVisitor {
@@ -35,9 +38,5 @@ class DirectInstantiationInspectionVisitor extends JavaElementVisitor {
             String problemDescription = String.format(DESCRIPTION_TEMPLATE, instantiatedClass.getName());
             holder.registerProblem(expression, problemDescription, (LocalQuickFix) null);
         }
-    }
-
-    private boolean isInTestFile(PsiElement element) {
-        return TestSourcesFilter.isTestSources(element.getContainingFile().getVirtualFile(), element.getProject());
     }
 }
