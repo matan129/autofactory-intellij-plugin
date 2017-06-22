@@ -1,12 +1,12 @@
 package mr.intellij.plugin.autofactory.inspections.direct.instantiation;
 
-import com.google.auto.factory.AutoFactory;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemsHolder;
+import com.intellij.openapi.roots.TestSourcesFilter;
 import com.intellij.psi.*;
 import lombok.RequiredArgsConstructor;
 
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.isAnnotationPresent;
+import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
 
 @RequiredArgsConstructor
 class DirectInstantiationInspectionVisitor extends JavaElementVisitor {
@@ -29,15 +29,15 @@ class DirectInstantiationInspectionVisitor extends JavaElementVisitor {
             return;
         }
 
-        if (hasAutoFactory(expression.resolveConstructor())
-                || hasAutoFactory(instantiatedClass)) {
-
+        boolean hasAutoFactory = hasAutoFactory(expression.resolveConstructor()) || hasAutoFactory(instantiatedClass);
+        boolean isRelevant = !isInTestFile(expression) || isInTestFile(instantiatedClass);
+        if (isRelevant && hasAutoFactory) {
             String problemDescription = String.format(DESCRIPTION_TEMPLATE, instantiatedClass.getName());
             holder.registerProblem(expression, problemDescription, (LocalQuickFix) null);
         }
     }
 
-    private boolean hasAutoFactory(PsiModifierListOwner owner) {
-        return owner != null && isAnnotationPresent(owner.getModifierList(), AutoFactory.class);
+    private boolean isInTestFile(PsiElement element) {
+        return TestSourcesFilter.isTestSources(element.getContainingFile().getVirtualFile(), element.getProject());
     }
 }

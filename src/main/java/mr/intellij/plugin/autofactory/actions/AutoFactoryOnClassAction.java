@@ -5,14 +5,13 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiModifierList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
 import static com.intellij.codeInsight.generation.OverrideImplementUtil.getContextClass;
 import static mr.intellij.plugin.autofactory.utils.PsiUtils.createFormattedAnnotation;
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.isAnnotationPresent;
+import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
 
 /**
  * Provides a way to add {@code @AutoFactory} annotation to a class.
@@ -31,13 +30,11 @@ public class AutoFactoryOnClassAction extends BaseAction {
 
             @SuppressWarnings("ConstantConditions")
             private boolean addAnnotation(@NotNull PsiClass psiClass) {
-                PsiModifierList psiModifierList = psiClass.getModifierList();
-
-                if (isAnnotationPresent(psiModifierList, AutoFactory.class)) {
+                if (hasAutoFactory(psiClass)) {
                     return false;
                 }
 
-                psiModifierList.addAfter(createFormattedAnnotation(psiClass, AutoFactory.class), null);
+                psiClass.getModifierList().addAfter(createFormattedAnnotation(psiClass, AutoFactory.class), null);
                 return true;
             }
         });

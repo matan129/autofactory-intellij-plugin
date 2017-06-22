@@ -1,5 +1,6 @@
 package mr.intellij.plugin.autofactory.utils;
 
+import com.google.auto.factory.AutoFactory;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
@@ -27,6 +28,10 @@ public class PsiUtils {
         PsiElementFactory elementFactory = JavaPsiFacade.getElementFactory(psiModifierListOwner.getProject());
         PsiClass psiClass = PsiTreeUtil.getParentOfType(psiModifierListOwner, PsiClass.class);
         return elementFactory.createAnnotationFromText("@" + annotationClass.getName(), psiClass);
+    }
+
+    public static boolean hasAutoFactory(@Nullable PsiModifierListOwner owner) {
+        return owner != null && isAnnotationPresent(owner.getModifierList(), AutoFactory.class);
     }
 
     public static boolean isAnnotationPresent(@Nullable PsiModifierList psiModifierList,
