@@ -10,10 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.Annotation;
+import java.util.Optional;
 
 public class PsiUtils {
 
-    @NotNull
     public static PsiAnnotation createFormattedAnnotation(@NotNull PsiModifierListOwner psiModifierListOwner,
                                                           @NotNull Class<? extends Annotation> annotationClass) {
 
@@ -22,7 +22,6 @@ public class PsiUtils {
         return psiAnnotation;
     }
 
-    @NotNull
     public static PsiAnnotation createAnnotation(@NotNull PsiModifierListOwner psiModifierListOwner,
                                                  @NotNull Class<? extends Annotation> annotationClass) {
 
@@ -33,6 +32,14 @@ public class PsiUtils {
 
     public static boolean hasAutoFactory(@Nullable PsiModifierListOwner owner) {
         return owner != null && isAnnotationPresent(owner.getModifierList(), AutoFactory.class);
+    }
+
+    public static Optional<PsiAnnotation> findAutoFactory(@Nullable PsiModifierListOwner owner) {
+        if(owner != null && owner.getModifierList() != null) {
+            return Optional.ofNullable(owner.getModifierList().findAnnotation(AutoFactory.class.getName()));
+        }
+
+        return Optional.empty();
     }
 
     public static boolean isAnnotationPresent(@Nullable PsiModifierList psiModifierList,

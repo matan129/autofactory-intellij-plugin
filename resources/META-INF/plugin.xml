@@ -8,9 +8,11 @@
 
   <change-notes/>
   <idea-version since-build="145.0"/>
+
   <extensions defaultExtensionNs="com.intellij">
-      <inspectionToolProvider implementation="mr.intellij.plugin.autofactory.inspections.direct.instantiation.DirectInstantiationInspectionProvider"/>
+      <inspectionToolProvider implementation="mr.intellij.plugin.autofactory.inspections.AutoFactoryInspectionsProvider"/>
   </extensions>
+
   <actions>
       <action id="mr.intellij.plugin.autofactory.actions.AutoFactoryOnClassAction"
               text="Add @AutoFactory to Class"

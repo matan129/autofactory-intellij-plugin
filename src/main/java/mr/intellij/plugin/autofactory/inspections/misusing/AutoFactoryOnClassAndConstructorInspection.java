@@ -1,4 +1,4 @@
-package mr.intellij.plugin.autofactory.inspections.direct.instantiation;
+package mr.intellij.plugin.autofactory.inspections.misusing;
 
 import com.intellij.codeInsight.daemon.GroupNames;
 import com.intellij.codeInspection.BaseJavaLocalInspectionTool;
@@ -7,7 +7,9 @@ import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
-public class DirectInstantiationInspection extends BaseJavaLocalInspectionTool {
+public class AutoFactoryOnClassAndConstructorInspection extends BaseJavaLocalInspectionTool {
+
+    public static final String DESCRIPTION = "@AutoFactory on both class and constructor(s)";
 
     @Override
     public boolean isEnabledByDefault() {
@@ -18,19 +20,19 @@ public class DirectInstantiationInspection extends BaseJavaLocalInspectionTool {
     @NotNull
     @Override
     public String getDisplayName() {
-        return "Invoking 'new' instead of the @AutoFactory method";
+        return DESCRIPTION;
     }
 
     @Nls
     @NotNull
     @Override
     public String getGroupDisplayName() {
-        return GroupNames.ENCAPSULATION_GROUP_NAME;
+        return GroupNames.BUGS_GROUP_NAME;
     }
 
     @NotNull
     @Override
     public PsiElementVisitor buildVisitor(@NotNull ProblemsHolder holder, boolean isOnTheFly) {
-        return new DirectInstantiationVisitor(holder);
+        return new AutoFactoryOnClassAndConstructorVisitor(holder);
     }
 }

@@ -12,7 +12,7 @@ import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
 import static mr.intellij.plugin.autofactory.utils.PsiUtils.isInTestFile;
 
 @RequiredArgsConstructor
-class DirectInstantiationInspectionVisitor extends JavaElementVisitor {
+class DirectInstantiationVisitor extends JavaElementVisitor {
 
     private static final String DESCRIPTION_TEMPLATE = "Using #ref instead of %s Factory.create()";
 
@@ -34,6 +34,7 @@ class DirectInstantiationInspectionVisitor extends JavaElementVisitor {
 
         boolean hasAutoFactory = hasAutoFactory(expression.resolveConstructor()) || hasAutoFactory(instantiatedClass);
         boolean isRelevant = !isInTestFile(expression) || isInTestFile(instantiatedClass);
+
         if (isRelevant && hasAutoFactory) {
             String problemDescription = String.format(DESCRIPTION_TEMPLATE, instantiatedClass.getName());
             holder.registerProblem(expression, problemDescription, (LocalQuickFix) null);
