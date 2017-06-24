@@ -32,7 +32,7 @@ class DirectInstantiationVisitor extends JavaElementVisitor {
             return;
         }
 
-        boolean hasAutoFactory = hasAutoFactory(expression.resolveConstructor()) || hasAutoFactory(instantiatedClass);
+        boolean hasAutoFactory = hasAutoFactory(expression.resolveConstructor(), true);
         boolean isRelevant = isRelevant(expression, instantiatedClass);
 
         if (isRelevant && hasAutoFactory) {

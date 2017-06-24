@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Warns when using 'new Foo(...)' if it has {@code @AutoFactory}.
+ */
 public class DirectInstantiationInspection extends BaseJavaLocalInspectionTool {
 
     @Override
