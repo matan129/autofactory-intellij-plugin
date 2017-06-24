@@ -5,11 +5,12 @@ import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiMethod;
 import lombok.RequiredArgsConstructor;
+import mr.intellij.plugin.autofactory.utils.AnnotationUtils;
 
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.findAutoFactory;
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
+import java.util.Arrays;
+
+import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.findAutoFactory;
 
 @RequiredArgsConstructor
 class AutoFactoryOnClassAndConstructorVisitor extends JavaElementVisitor {
@@ -27,13 +28,16 @@ class AutoFactoryOnClassAndConstructorVisitor extends JavaElementVisitor {
     public void visitClass(PsiClass psiClass) {
         super.visitClass(psiClass);
 
-        findAutoFactory(psiClass).ifPresent(autoFactory -> {
-            for (PsiMethod constructor : psiClass.getConstructors()) {
-                if (hasAutoFactory(constructor)) {
-                    holder.registerProblem(autoFactory, AutoFactoryOnClassAndConstructorInspection.DESCRIPTION,
-                            ProblemHighlightType.GENERIC_ERROR, QUICK_FIXES);
-                }
-            }
-        });
+        findAutoFactory(psiClass)
+                .ifPresent(autoFactory -> Arrays.stream(psiClass.getConstructors())
+                                                .filter(AnnotationUtils::hasAutoFactory)
+                                                .findAny()
+                                                .ifPresent(constructor -> holder.registerProblem(
+                                                        autoFactory,
+                                                        AutoFactoryOnClassAndConstructorInspection.DESCRIPTION,
+                                                        ProblemHighlightType.GENERIC_ERROR,
+                                                        QUICK_FIXES
+                                                ))
+                );
     }
 }

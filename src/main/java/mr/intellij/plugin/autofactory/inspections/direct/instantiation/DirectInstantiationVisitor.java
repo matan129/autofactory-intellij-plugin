@@ -8,13 +8,13 @@ import com.intellij.psi.PsiJavaCodeReferenceElement;
 import com.intellij.psi.PsiNewExpression;
 import lombok.RequiredArgsConstructor;
 
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.hasAutoFactory;
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.isInTestFile;
+import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.hasAutoFactory;
+import static mr.intellij.plugin.autofactory.utils.ProjectFilesUtils.isInTestFile;
 
 @RequiredArgsConstructor
 class DirectInstantiationVisitor extends JavaElementVisitor {
 
-    private static final String DESCRIPTION_TEMPLATE = "Using #ref instead of %s Factory.create()";
+    private static final String DESCRIPTION_TEMPLATE = "Using #ref instead of %sFactory.create()";
 
     private final ProblemsHolder holder;
 
@@ -33,11 +33,21 @@ class DirectInstantiationVisitor extends JavaElementVisitor {
         }
 
         boolean hasAutoFactory = hasAutoFactory(expression.resolveConstructor()) || hasAutoFactory(instantiatedClass);
-        boolean isRelevant = !isInTestFile(expression) || isInTestFile(instantiatedClass);
+        boolean isRelevant = isRelevant(expression, instantiatedClass);
 
         if (isRelevant && hasAutoFactory) {
             String problemDescription = String.format(DESCRIPTION_TEMPLATE, instantiatedClass.getName());
             holder.registerProblem(expression, problemDescription, (LocalQuickFix) null);
         }
+    }
+
+    /**
+     * @return True if the expression was not made in a test and if the instantiated class was not declared in a test
+     *         file, too.
+     *         The rational of this is to allow direct instantiation in tests, but only for classes being tests, and
+     *         not classes declared in tests, too.
+     */
+    private boolean isRelevant(PsiNewExpression expression, PsiClass instantiatedClass) {
+        return !isInTestFile(expression) || isInTestFile(instantiatedClass);
     }
 }

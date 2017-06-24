@@ -9,7 +9,7 @@ import com.intellij.psi.PsiMethod;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
-import static mr.intellij.plugin.autofactory.utils.PsiUtils.findAutoFactory;
+import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.findAutoFactory;
 
 public class RemoveAutoFactoryFromConstructorsQuickFix implements LocalQuickFix {
 

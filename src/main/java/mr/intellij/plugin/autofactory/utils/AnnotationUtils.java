@@ -2,7 +2,6 @@ package mr.intellij.plugin.autofactory.utils;
 
 import com.google.auto.factory.AutoFactory;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.TestSourcesFilter;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.JavaCodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -12,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 
-public class PsiUtils {
+public class AnnotationUtils {
 
     public static PsiAnnotation createFormattedAnnotation(@NotNull PsiModifierListOwner psiModifierListOwner,
                                                           @NotNull Class<? extends Annotation> annotationClass) {
@@ -30,16 +29,13 @@ public class PsiUtils {
         return elementFactory.createAnnotationFromText("@" + annotationClass.getName(), psiClass);
     }
 
-    public static boolean hasAutoFactory(@Nullable PsiModifierListOwner owner) {
-        return owner != null && isAnnotationPresent(owner.getModifierList(), AutoFactory.class);
+    public static boolean hasAutoFactory(@Nullable PsiMethod psiMethod, boolean includeClass) {
+        return psiMethod != null &&
+               (hasAutoFactory(psiMethod) || (includeClass && hasAutoFactory(psiMethod.getContainingClass())));
     }
 
-    public static Optional<PsiAnnotation> findAutoFactory(@Nullable PsiModifierListOwner owner) {
-        if(owner != null && owner.getModifierList() != null) {
-            return Optional.ofNullable(owner.getModifierList().findAnnotation(AutoFactory.class.getName()));
-        }
-
-        return Optional.empty();
+    public static boolean hasAutoFactory(@Nullable PsiModifierListOwner owner) {
+        return owner != null && isAnnotationPresent(owner.getModifierList(), AutoFactory.class);
     }
 
     public static boolean isAnnotationPresent(@Nullable PsiModifierList psiModifierList,
@@ -48,8 +44,12 @@ public class PsiUtils {
         return psiModifierList != null && psiModifierList.findAnnotation(annotationClass.getName()) != null;
     }
 
-    public static boolean isInTestFile(@NotNull PsiElement element) {
-        return TestSourcesFilter.isTestSources(element.getContainingFile().getVirtualFile(), element.getProject());
+    public static Optional<PsiAnnotation> findAutoFactory(@Nullable PsiModifierListOwner owner) {
+        if (owner != null && owner.getModifierList() != null) {
+            return Optional.ofNullable(owner.getModifierList().findAnnotation(AutoFactory.class.getName()));
+        }
+
+        return Optional.empty();
     }
 
     private static void shortenReference(@NotNull PsiModifierListOwner psiModifierListOwner,

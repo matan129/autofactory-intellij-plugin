@@ -8,6 +8,6 @@ public class AutoFactoryInspectionsProvider implements InspectionToolProvider {
 
     @Override
     public Class[] getInspectionClasses() {
-        return new Class[]{DirectInstantiationInspection.class, AutoFactoryOnClassAndConstructorInspection.class};
+        return new Class[] {DirectInstantiationInspection.class, AutoFactoryOnClassAndConstructorInspection.class};
     }
 }

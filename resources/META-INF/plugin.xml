@@ -11,12 +11,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
       <inspectionToolProvider implementation="mr.intellij.plugin.autofactory.inspections.AutoFactoryInspectionsProvider"/>
+      <codeInsight.lineMarkerProvider language="JAVA"
+                                      implementationClass="mr.intellij.plugin.autofactory.line.markers.AutoFactoryLineMarkerProvider"/>
   </extensions>
-
-  <actions>
-      <action id="mr.intellij.plugin.autofactory.actions.AutoFactoryOnClassAction"
-              text="Add @AutoFactory to Class"
-              class="mr.intellij.plugin.autofactory.actions.AutoFactoryOnClassAction"
-              description="Adds @AutoFactory to a class"/>
-  </actions>
 </idea-plugin>
