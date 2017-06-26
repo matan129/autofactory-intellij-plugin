@@ -111,3 +111,4 @@ gradle-app.setting
 /.idea/dictionaries
 .DS_Store
 /build
+.idea
