@@ -2,6 +2,7 @@ package mr.intellij.plugin.autofactory.line.markers;
 
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
 import com.intellij.find.actions.ShowUsagesAction;
+import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
@@ -39,9 +40,10 @@ public class FindAutoFactoryUsagesHandler implements GutterIconNavigationHandler
         }
 
         MethodUtils.findMatchingMethod(FACTORY_METHOD_NAME, factoryClass, constructor)
-                   .ifPresent(psiMethod -> new ShowUsagesAction()
-                           .startFindUsages(psiMethod,
-                                            new RelativePoint(mouseEvent),
-                                            PsiUtilBase.findEditor(constructor), 100));
+                   .ifPresent(psiMethod ->
+                                      ((ShowUsagesAction) ActionManager.getInstance().getAction(ShowUsagesAction.ID))
+                                              .startFindUsages(psiMethod,
+                                                               new RelativePoint(mouseEvent),
+                                                               PsiUtilBase.findEditor(constructor), 100));
     }
 }

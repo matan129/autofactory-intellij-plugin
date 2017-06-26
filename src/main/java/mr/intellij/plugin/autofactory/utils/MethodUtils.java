@@ -47,7 +47,7 @@ public class MethodUtils {
 
     public static List<PsiType> getMethodParamTypes(PsiMethod method) {
         return Arrays.stream(method.getParameterList().getParameters())
-                     .filter(psiParameter -> isAnnotationPresent(psiParameter.getModifierList(), Provided.class))
+                     .filter(psiParameter -> !isAnnotationPresent(psiParameter.getModifierList(), Provided.class))
                      .map(PsiVariable::getType)
                      .collect(Collectors.toList());
     }
