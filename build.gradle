@@ -1,38 +1,32 @@
 plugins {
-    id 'org.jetbrains.intellij' version '0.2.11'
+    id 'org.jetbrains.intellij' version '0.2.13'
     id 'net.ltgt.apt' version '0.10'
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
 
-targetCompatibility = '1.8'
 sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+intellij {
+    version 'IC-2017.1'
+    pluginName 'Google AutoFactory Support'
 }
+
+group 'mr.intellij.plugin.autofactory'
+version '0.0.1'
 
 repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-    maven {
-        url 'https://dl.bintray.com/jetbrains/intellij-plugin-service'
-    }
 }
 
 dependencies {
-    compileOnly "org.projectlombok:lombok:1.16.16"
-    apt         "org.projectlombok:lombok:1.16.16"
+    compileOnly 'org.projectlombok:lombok:1.16.16'
+    apt 'org.projectlombok:lombok:1.16.16'
 
     compile 'com.google.auto.factory:auto-factory:1.0-beta5'
-    apt     'com.google.auto.factory:auto-factory:1.0-beta5'
-}
-
-intellij {
-    version 171 // 2017.1
-    pluginName 'auto-factory-intellij-plugin'
-    downloadSources false
+    apt 'com.google.auto.factory:auto-factory:1.0-beta5'
 }

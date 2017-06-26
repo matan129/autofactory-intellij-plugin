@@ -7,7 +7,7 @@
   <description>Provides support for Google's AutoFactory.</description>
 
   <change-notes/>
-  <idea-version since-build="145.0"/>
+  <idea-version since-build="162.0"/>
 
   <extensions defaultExtensionNs="com.intellij">
       <inspectionToolProvider implementation="mr.intellij.plugin.autofactory.inspections.AutoFactoryInspectionsProvider"/>

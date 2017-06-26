@@ -1,5 +1,6 @@
 package mr.intellij.plugin.autofactory.utils;
 
+import com.google.auto.factory.Provided;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiType;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.isAnnotationPresent;
 
 public class MethodUtils {
 
@@ -44,6 +47,7 @@ public class MethodUtils {
 
     public static List<PsiType> getMethodParamTypes(PsiMethod method) {
         return Arrays.stream(method.getParameterList().getParameters())
+                     .filter(psiParameter -> isAnnotationPresent(psiParameter.getModifierList(), Provided.class))
                      .map(PsiVariable::getType)
                      .collect(Collectors.toList());
     }
