@@ -44,6 +44,7 @@ public class FindAutoFactoryUsagesHandler implements GutterIconNavigationHandler
                                       ((ShowUsagesAction) ActionManager.getInstance().getAction(ShowUsagesAction.ID))
                                               .startFindUsages(psiMethod,
                                                                new RelativePoint(mouseEvent),
-                                                               PsiUtilBase.findEditor(constructor), 100));
+                                                               PsiUtilBase.findEditor(constructor),
+                                                               ShowUsagesAction.USAGES_PAGE_SIZE));
     }
 }
