@@ -5,7 +5,12 @@
     <vendor email="matan129@gmail.com"
             url="https://github.com/matan129/autofactory-intellij-plugin">Matan Rosenberg</vendor>
 
-    <description>Provides support for Google's AutoFactory.</description>
+    <description>
+        Provides support for Google's AutoFactory.
+
+        - Implements various inspections for AutoFactory misusing.
+        - Gutter icons for quick navigation to "autfactoried" constructors / usages search
+    </description>
 
     <change-notes/>
     <idea-version since-build="162.0"/>
