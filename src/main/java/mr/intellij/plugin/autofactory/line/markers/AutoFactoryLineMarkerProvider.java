@@ -8,6 +8,7 @@ import com.intellij.codeInsight.daemon.LineMarkerProvider;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.*;
+import com.intellij.util.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +25,8 @@ import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.hasAutoFactor
  */
 public class AutoFactoryLineMarkerProvider implements LineMarkerProvider {
 
-    private static final Icon FACTORY_ICON = IconLoader.getIcon("/icons/factory.png");
+    private static final Icon GRAY_ICON = IconLoader.getIcon("/icons/gray_factory.png");
+    private static final Icon BLACK_ICON = IconLoader.getIcon("/icons/black_factory.png");
     private static final String FACTORY_METHOD_NAME = "create";
     private static final String GENERATED_VALUE_NAME = "value";
 
@@ -75,7 +77,15 @@ public class AutoFactoryLineMarkerProvider implements LineMarkerProvider {
     private static <T extends PsiElement> LineMarkerInfo<T> createMarker(T element,
                                                                          GutterIconNavigationHandler<T> navHandler) {
 
-        return new LineMarkerInfo<>(element, element.getTextRange(), FACTORY_ICON, Pass.LINE_MARKERS, null, navHandler,
-                                    GutterIconRenderer.Alignment.LEFT);
+        return new LineMarkerInfo<>(element, element.getTextRange(), chooseIcon(), Pass.LINE_MARKERS, null, navHandler,
+                                    GutterIconRenderer.Alignment.CENTER);
+    }
+
+    private static Icon chooseIcon() {
+        if (UIUtil.isUnderDarcula()) {
+            return GRAY_ICON;
+        }
+
+        return BLACK_ICON;
     }
 }
