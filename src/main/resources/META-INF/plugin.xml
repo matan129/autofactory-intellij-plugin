@@ -3,7 +3,8 @@
     <name>Google Autofactory Support</name>
     <version>0.0.1</version>
     <vendor email="matan129@gmail.com"
-            url="https://github.com/matan129/autofactory-intellij-plugin">Matan Rosenberg</vendor>
+            url="https://github.com/matan129/autofactory-intellij-plugin">Matan Rosenberg
+    </vendor>
 
     <description>
         Provides support for Google's AutoFactory.

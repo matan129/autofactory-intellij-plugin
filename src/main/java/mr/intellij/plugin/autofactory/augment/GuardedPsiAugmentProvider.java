@@ -12,11 +12,11 @@ import java.util.List;
 
 /**
  * PsiAugment provider that is stack overflow resistant.
- *
+ * <p>
  * The rational for such class is that {@link InjectAugmentProvider} is supposed to (sometimes) add {@literal @Inject}
  * annotations on constructors, but in its {@code getAugments()} logic is check for other annotations presence, which
  * triggers another {@code getAugments()} and so on, causing stack overflow.
- *
+ * <p>
  * This class fixes this issue by suppressing reentrant {@code getAugment()} calls.
  *
  * @param <T> The supported {@link PsiElement} (i.e. {@link com.intellij.psi.PsiAnnotation}).
@@ -45,6 +45,6 @@ public abstract class GuardedPsiAugmentProvider<T extends PsiElement> extends Ps
             suppress = false;
         }
     }
-    
+
     protected abstract List<T> doGetAugments(@NotNull PsiElement element);
 }

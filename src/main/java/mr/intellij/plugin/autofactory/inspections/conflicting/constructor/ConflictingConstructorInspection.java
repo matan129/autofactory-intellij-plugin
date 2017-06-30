@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Marks constructors that will have the same {@code FooFactory.create(...)} signature due to
  * {@link com.google.auto.factory.Provided} annotation. For example:
- *
+ * <p>
  * <pre>
  *     &#064;AutoFactory
  *     class Foo {

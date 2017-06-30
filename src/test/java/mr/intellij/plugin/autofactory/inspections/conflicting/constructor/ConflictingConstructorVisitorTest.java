@@ -5,7 +5,6 @@ import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiIdentifier;
 import com.intellij.testFramework.fixtures.*;
 import mr.intellij.plugin.autofactory.TestUtils;
 import org.junit.jupiter.api.AfterAll;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
