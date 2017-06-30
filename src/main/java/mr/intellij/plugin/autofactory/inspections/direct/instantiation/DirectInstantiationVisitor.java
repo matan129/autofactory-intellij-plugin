@@ -7,14 +7,16 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiJavaCodeReferenceElement;
 import com.intellij.psi.PsiNewExpression;
 import lombok.RequiredArgsConstructor;
+import mr.intellij.plugin.autofactory.utils.AnnotationUtils;
+import mr.intellij.plugin.autofactory.utils.ProjectFilesUtils;
 
-import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.hasAutoFactory;
-import static mr.intellij.plugin.autofactory.utils.ProjectFilesUtils.isInTestFile;
-
+/**
+ * @see DirectInstantiationInspection
+ */
 @RequiredArgsConstructor
 class DirectInstantiationVisitor extends JavaElementVisitor {
 
-    private static final String DESCRIPTION_TEMPLATE = "Using #ref instead of %sFactory.create()";
+    private static final String DESCRIPTION_TEMPLATE = "Using #ref instead of %sFactory.create(...)";
 
     private final ProblemsHolder holder;
 
@@ -32,7 +34,7 @@ class DirectInstantiationVisitor extends JavaElementVisitor {
             return;
         }
 
-        boolean hasAutoFactory = hasAutoFactory(expression.resolveConstructor(), true);
+        boolean hasAutoFactory = AnnotationUtils.hasAutoFactory(expression.resolveConstructor(), true);
         boolean isRelevant = isRelevant(expression, instantiatedClass);
 
         if (isRelevant && hasAutoFactory) {
@@ -48,6 +50,6 @@ class DirectInstantiationVisitor extends JavaElementVisitor {
      *         not classes declared in tests, too.
      */
     private boolean isRelevant(PsiNewExpression expression, PsiClass instantiatedClass) {
-        return !isInTestFile(expression) || isInTestFile(instantiatedClass);
+        return !ProjectFilesUtils.isInTestFile(expression) || ProjectFilesUtils.isInTestFile(instantiatedClass);
     }
 }

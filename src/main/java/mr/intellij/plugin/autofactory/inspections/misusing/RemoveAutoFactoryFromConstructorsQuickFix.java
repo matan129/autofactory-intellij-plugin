@@ -11,6 +11,11 @@ import org.jetbrains.annotations.NotNull;
 
 import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.findAutoFactory;
 
+/**
+ * Removes {@literal @AutoFactory} annotations from the constructors.
+ *
+ * @see AutoFactoryOnClassAndConstructorInspection
+ */
 public class RemoveAutoFactoryFromConstructorsQuickFix implements LocalQuickFix {
 
     @NotNull

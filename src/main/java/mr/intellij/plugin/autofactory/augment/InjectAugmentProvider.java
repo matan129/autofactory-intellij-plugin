@@ -11,6 +11,12 @@ import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Augments constructors with {@literal @AutoFactory} annotation with {@literal @Inject}, so other plugins,
+ * like Guice / Dagger / etc. may pick this up and provide some additional info.
+ *
+ * Also, this makes the IDE suppress some annoying inspections.
+ */
 public class InjectAugmentProvider extends GuardedPsiAugmentProvider<PsiAnnotation> {
 
     protected InjectAugmentProvider() {

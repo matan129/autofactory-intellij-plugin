@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * PsiAugment provider that is stack overflow resistant.
  *
- * The rational for such class is that {@link InjectAugmentProvider} is supposed to (sometimes) add {@code @Inject}
+ * The rational for such class is that {@link InjectAugmentProvider} is supposed to (sometimes) add {@literal @Inject}
  * annotations on constructors, but in its {@code getAugments()} logic is check for other annotations presence, which
  * triggers another {@code getAugments()} and so on, causing stack overflow.
  *

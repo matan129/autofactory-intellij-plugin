@@ -9,6 +9,7 @@ import com.intellij.openapi.editor.markup.GutterIconRenderer;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.psi.*;
 import com.intellij.util.ui.UIUtil;
+import mr.intellij.plugin.autofactory.utils.AnnotationUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,8 +18,6 @@ import javax.swing.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.hasAutoFactory;
 
 /**
  * Marks AutoFactory-enabled constructors and relevant factory calls (like {@code FooFactory.create(..)}).
@@ -53,7 +52,7 @@ public class AutoFactoryLineMarkerProvider implements LineMarkerProvider {
 
     private LineMarkerInfo<?> markConstructor(PsiMethod constructor) {
         return Optional.of(constructor)
-                       .filter(c -> hasAutoFactory(c, true))
+                       .filter(c -> AnnotationUtils.hasAutoFactory(c, true))
                        .map(PsiNameIdentifierOwner::getNameIdentifier)
                        .map(element -> createMarker(element, new FindAutoFactoryUsagesHandler()))
                        .orElse(null);

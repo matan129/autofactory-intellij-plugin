@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Warns when using 'new Foo(...)' if it has {@code @AutoFactory}.
+ * Warns when using {@code 'new Foo(...)'} if the matching constructor has {@literal @AutoFactory}.
  */
 public class DirectInstantiationInspection extends BaseJavaLocalInspectionTool {
 

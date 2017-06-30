@@ -12,6 +12,9 @@ import java.util.Arrays;
 
 import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.findAutoFactory;
 
+/**
+ * @see AutoFactoryOnClassAndConstructorInspection
+ */
 @RequiredArgsConstructor
 class AutoFactoryOnClassAndConstructorVisitor extends JavaElementVisitor {
 

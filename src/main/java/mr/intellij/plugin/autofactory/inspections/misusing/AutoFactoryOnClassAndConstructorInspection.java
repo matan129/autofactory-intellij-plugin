@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Marks usages of {@code @AutoFactory} on both constructors(s) and the class as errors.
+ * Marks usages of {@literal @AutoFactory} on both constructors(s) and the class as errors.
  */
 public class AutoFactoryOnClassAndConstructorInspection extends BaseJavaLocalInspectionTool {
 
