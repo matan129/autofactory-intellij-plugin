@@ -27,7 +27,7 @@ public class InjectAugmentProvider extends GuardedPsiAugmentProvider<PsiAnnotati
                 return Collections.emptyList();
             }
 
-            PsiElement context = element.getContext();
+            PsiElement context = modifierList.getContext();
 
             if (!(context instanceof PsiMethod)) {
                 return Collections.emptyList();
@@ -39,7 +39,7 @@ public class InjectAugmentProvider extends GuardedPsiAugmentProvider<PsiAnnotati
                 return Collections.emptyList();
             }
 
-            return Collections.singletonList(AnnotationUtils.createAnnotation(element.getProject(), Inject.class));
+            return Collections.singletonList(AnnotationUtils.createAnnotation(modifierList.getProject(), Inject.class));
         }
 
         return Collections.emptyList();

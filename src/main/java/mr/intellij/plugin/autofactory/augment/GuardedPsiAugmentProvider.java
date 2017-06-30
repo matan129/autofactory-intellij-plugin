@@ -17,7 +17,7 @@ import java.util.List;
  * annotations on constructors, but in its {@code getAugments()} logic is check for other annotations presence, which
  * triggers another {@code getAugments()} and so on, causing stack overflow.
  *
- * This class fixes this issue by introducing a {@link Suppressor} that disables further {@code getAugment()} calls.
+ * This class fixes this issue by suppressing reentrant {@code getAugment()} calls.
  *
  * @param <T> The supported {@link PsiElement} (i.e. {@link com.intellij.psi.PsiAnnotation}).
  */
@@ -38,22 +38,13 @@ public abstract class GuardedPsiAugmentProvider<T extends PsiElement> extends Ps
             return Collections.emptyList();
         }
 
-        try (Suppressor ignored = new Suppressor()) {
-            return (List<Psi>) doGetAugments(element);
-        }
-    }
-
-    protected abstract List<T> doGetAugments(@NotNull PsiElement element);
-
-    private class Suppressor implements AutoCloseable {
-
-        public Suppressor() {
+        try {
             suppress = true;
-        }
-
-        @Override
-        public void close() throws Exception {
+            return (List<Psi>) doGetAugments(element);
+        } finally {
             suppress = false;
         }
     }
+    
+    protected abstract List<T> doGetAugments(@NotNull PsiElement element);
 }
