@@ -1,12 +1,9 @@
 package mr.intellij.plugin.autofactory.inspections.conflicting.constructor;
 
-import com.google.auto.factory.AutoFactory;
 import com.google.common.collect.Lists;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
+import com.intellij.psi.*;
 import lombok.RequiredArgsConstructor;
 import mr.intellij.plugin.autofactory.utils.AnnotationUtils;
 import mr.intellij.plugin.autofactory.utils.MethodUtils;

@@ -1,21 +1,16 @@
+buildscript {
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
+    }
+}
+
 plugins {
+    id 'java'
     id 'org.jetbrains.intellij' version '0.2.13'
     id 'net.ltgt.apt' version '0.10'
 }
 
-apply plugin: 'org.jetbrains.intellij'
-apply plugin: 'java'
-
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
-
-intellij {
-    version 'IC-2017.1'
-    pluginName 'Google AutoFactory Support'
-}
-
-group 'mr.intellij.plugin.autofactory'
-version '0.0.1'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 repositories {
     mavenLocal()
@@ -23,10 +18,31 @@ repositories {
     jcenter()
 }
 
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+def isCi = System.env.CI != null
+
+intellij {
+    version 'IC-2017.1'
+    pluginName 'Google AutoFactory Support'
+    downloadSources !isCi
+    updateSinceUntilBuild false
+}
+
+group 'mr.intellij.plugin.autofactory'
+version '0.0.1'
+
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.16'
-    apt 'org.projectlombok:lombok:1.16.16'
+    apt         'org.projectlombok:lombok:1.16.16'
 
-    compile 'com.google.auto.factory:auto-factory:1.0-beta5'
-    apt 'com.google.auto.factory:auto-factory:1.0-beta5'
+    compile     'com.google.auto.factory:auto-factory:1.0-beta5'
+    compile     'com.google.guava:guava:22.0'
+    compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
+
+    testCompile 'org.assertj:assertj-core:3.8.0'
+    testCompile 'org.mockito:mockito-core:2.8.47'
+    testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }

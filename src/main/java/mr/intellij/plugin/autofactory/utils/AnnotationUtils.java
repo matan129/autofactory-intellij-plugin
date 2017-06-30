@@ -1,6 +1,7 @@
 package mr.intellij.plugin.autofactory.utils;
 
 import com.google.auto.factory.AutoFactory;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,9 +28,24 @@ public class AnnotationUtils {
         return Optional.empty();
     }
 
+    @SafeVarargs
     public static boolean isAnnotationPresent(@Nullable PsiModifierList psiModifierList,
-                                              @NotNull Class<? extends Annotation> annotationClass) {
+                                              @NotNull Class<? extends Annotation>... annotationClasses) {
 
-        return psiModifierList != null && psiModifierList.findAnnotation(annotationClass.getName()) != null;
+        for (Class<? extends Annotation> annotationClass : annotationClasses) {
+            if (psiModifierList != null && psiModifierList.findAnnotation(annotationClass.getName()) != null) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @NotNull
+    public static PsiAnnotation createAnnotation(@NotNull Project project,
+                                                 @NotNull Class<? extends Annotation> annotationClass) {
+
+        return JavaPsiFacade.getElementFactory(project)
+                            .createAnnotationFromText("@" + annotationClass.getName(), null);
     }
 }
