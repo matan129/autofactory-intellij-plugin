@@ -12,6 +12,11 @@ plugins {
 
 apply plugin: 'org.junit.platform.gradle.plugin'
 
+def isCi = System.env.CI != null
+
+group 'mr.intellij.plugin.autofactory'
+version '0.1.0'
+
 repositories {
     mavenLocal()
     mavenCentral()
@@ -21,25 +26,28 @@ repositories {
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-def isCi = System.env.CI != null
+def intellijVersions = [
+        'oldest': 'IC-2016.3',
+        'latest': 'IC-2017.1',
+        'eap': 'LATEST-EAP-SNAPSHOT'
+]
 
 intellij {
-    version 'IC-2017.1'
+    def intellijVersion = intellijVersions[System.env.INTELLIJ_VERSION ?: 'latest']
+    println "Picked IntelliJ $intellijVersion"
+    version intellijVersion
     pluginName 'Google AutoFactory Support'
     downloadSources !isCi
     updateSinceUntilBuild false
 }
 
-group 'mr.intellij.plugin.autofactory'
-version '0.1.0'
-
 dependencies {
     compileOnly "org.projectlombok:lombok:$lombokVersion"
-    apt         "org.projectlombok:lombok:$lombokVersion"
+    apt "org.projectlombok:lombok:$lombokVersion"
 
-    compile     'com.google.auto.factory:auto-factory:1.0-beta5'
-    compile     'com.google.guava:guava:22.0'
-    compile     'com.google.inject:guice:4.1.0'
+    compile 'com.google.auto.factory:auto-factory:1.0-beta5'
+    compile 'com.google.guava:guava:22.0'
+    compile 'com.google.inject:guice:4.1.0'
 
     testCompile 'org.assertj:assertj-core:3.8.0'
     testCompile 'org.mockito:mockito-core:2.8.47'
