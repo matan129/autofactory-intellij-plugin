@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,8 @@ public class ConflictingConstructorVisitorTest {
         codeInsightFixture = JavaTestFixtureFactory.getFixtureFactory()
                                                    .createCodeInsightFixture(projectFixture);
         codeInsightFixture.setUp();
-        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource("ClassWithConflictingConstructors.java"));
+        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource(ConflictingConstructorVisitorTest.class,
+                                                                            "ClassWithConflictingConstructors.java"));
     }
 
     @AfterClass
