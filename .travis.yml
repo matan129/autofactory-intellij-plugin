@@ -33,7 +33,7 @@ cache:
     - "$HOME/.gradle/wrapper/"
 
 after_success:
-  - "[ $INTELLIJ_VERSION = \"latest\" ] || bash <(curl -s https://codecov.io/bash)"
+  - "[ \"$INTELLIJ_VERSION\" != \"latest\" ] || bash <(curl -s https://codecov.io/bash)"
 
 before_deploy:
   - ./gradlew buildPlugin
