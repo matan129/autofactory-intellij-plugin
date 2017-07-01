@@ -10,8 +10,6 @@ import mr.intellij.plugin.autofactory.utils.AnnotationUtils;
 
 import java.util.Arrays;
 
-import static mr.intellij.plugin.autofactory.utils.AnnotationUtils.findAutoFactory;
-
 /**
  * @see AutoFactoryOnClassAndConstructorInspection
  */
@@ -31,16 +29,16 @@ class AutoFactoryOnClassAndConstructorVisitor extends JavaElementVisitor {
     public void visitClass(PsiClass psiClass) {
         super.visitClass(psiClass);
 
-        findAutoFactory(psiClass)
-                .ifPresent(autoFactory -> Arrays.stream(psiClass.getConstructors())
-                                                .filter(AnnotationUtils::hasAutoFactory)
-                                                .findAny()
-                                                .ifPresent(constructor -> holder.registerProblem(
-                                                        autoFactory,
-                                                        AutoFactoryOnClassAndConstructorInspection.DESCRIPTION,
-                                                        ProblemHighlightType.GENERIC_ERROR,
-                                                        QUICK_FIXES
-                                                ))
-                );
+        AnnotationUtils.findAutoFactory(psiClass)
+                       .ifPresent(autoFactory -> Arrays.stream(psiClass.getConstructors())
+                                                       .filter(AnnotationUtils::hasAutoFactory)
+                                                       .findAny()
+                                                       .ifPresent(constructor -> holder.registerProblem(
+                                                               autoFactory,
+                                                               AutoFactoryOnClassAndConstructorInspection.DESCRIPTION,
+                                                               ProblemHighlightType.GENERIC_ERROR,
+                                                               QUICK_FIXES
+                                                       ))
+                       );
     }
 }

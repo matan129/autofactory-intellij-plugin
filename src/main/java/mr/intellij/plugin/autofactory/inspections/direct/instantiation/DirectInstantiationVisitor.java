@@ -34,10 +34,9 @@ class DirectInstantiationVisitor extends JavaElementVisitor {
             return;
         }
 
-        boolean hasAutoFactory = AnnotationUtils.hasAutoFactory(expression.resolveConstructor(), true);
-        boolean isRelevant = isRelevant(expression, instantiatedClass);
+        if (AnnotationUtils.hasAutoFactory(expression.resolveConstructor(), true)
+            && isRelevant(expression, instantiatedClass)) {
 
-        if (isRelevant && hasAutoFactory) {
             String problemDescription = String.format(DESCRIPTION_TEMPLATE, instantiatedClass.getName());
             holder.registerProblem(expression, problemDescription, (LocalQuickFix) null);
         }

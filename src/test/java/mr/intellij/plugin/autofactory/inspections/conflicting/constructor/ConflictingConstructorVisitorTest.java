@@ -1,12 +1,10 @@
 package mr.intellij.plugin.autofactory.inspections.conflicting.constructor;
 
-import com.google.gson.Gson;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
 import com.intellij.testFramework.fixtures.*;
 import mr.intellij.plugin.autofactory.TestUtils;
