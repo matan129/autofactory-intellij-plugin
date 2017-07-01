@@ -6,11 +6,14 @@
             url="https://github.com/matan129/autofactory-intellij-plugin">Matan Rosenberg
     </vendor>
 
-    <description>
+    <description><![CDATA[
         Provides support for Google's AutoFactory.
-
-        - Implements various inspections for AutoFactory misusing.
-        - Gutter icons for quick navigation to "autfactoried" constructors / usages search
+        
+        <ul>
+            <li>Implements various inspections for AutoFactory misusing.</li>
+            <li>Gutter icons for quick navigation to "autfactoried" constructors / usages search</li>
+        </ul>
+    ]]>
     </description>
 
     <change-notes/>
