@@ -10,7 +10,7 @@
         Provides support for Google's AutoFactory.
         
         <ul>
-            <li>Implements various inspections for AutoFactory misusing.</li>
+            <li>Implements various inspections for AutoFactory misusing</li>
             <li>Gutter icons for quick navigation to "autfactoried" constructors / usages search</li>
         </ul>
     ]]>
