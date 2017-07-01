@@ -4,7 +4,7 @@
 Provides IntelliJ support for Google's [AutoFactory](https://github.com/google/auto/tree/master/factory).
 You may download the plugin from IntelliJ directly or from the [release page](https://github.com/matan129/autofactory-intellij-plugin/releases).
 
-Currently, the plugin supports IntelliJ Community / Ultimate version _2016.3_ and up.
+Currently, the plugin supports IntelliJ Community / Ultimate version 2016.3 and up.
 
 The plugin provides
 * Various inspections for AutoFactory misusing
@@ -23,6 +23,6 @@ If you encounter a bug while using the plugin, please [open an issue](https://gi
 
 ## CI Status
 Branch | Build Status | Coverage
----|---|---
+---:|:---:|:---:
 master | [![Travis Status](https://img.shields.io/travis/matan129/autofactory-intellij-plugin/master.svg)](https://travis-ci.org/matan129/autofactory-intellij-plugin) | [![Codecov Master](https://img.shields.io/codecov/c/github/matan129/autofactory-intellij-plugin/master.svg)](https://codecov.io/gh/matan129/autofactory-intellij-plugin)
 develop | [![Travis Status](https://img.shields.io/travis/matan129/autofactory-intellij-plugin/develop.svg)](https://travis-ci.org/matan129/autofactory-intellij-plugin) | [![Codecov Develop](https://img.shields.io/codecov/c/github/matan129/autofactory-intellij-plugin/develop.svg)](https://codecov.io/gh/matan129/autofactory-intellij-plugin)
