@@ -38,6 +38,7 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: Pu5iltA4TWUz0VASG6gVjhz3RfINkDtvfbFTlHiXoYTht6yS+AL/r2EkCAJ8l4qMW8H1bqJHckIn07wIyotqkRqS/PWWGn/P5sYMRzUT8C3F6UP5/n6/f5kXksuowPs7+PuY29RBcSGvG6698cTP6oKSSm3/tf1wmdDbX+SPNFQxyUT+liNvEbk7qVgmVuZropiEy/xgHSd1YPZ0PRtK2bQpb//WrhOXDEbX62zSLBRCw6PnoB0VuAXq5Z3PcJlVWJHqoSyoXU6/e626in0/KF3fP5RRDgY3ZiV9Y8wATboEmJkzlBNQfjYsLk7QcZoZJRqtaFrY+ecCMMa8z3Hg9TTP7LhNOCf04rHuQ6raPP4UfNLRlsWeMdJEAnbswzcuwSNP3PdnbV5S4gmbgiKpEAUabNUUyBosrr7xQM8CAyLgkhnUAysOBNyITOgUfE6ElrMPXxxfVNOYxlOihSglqIEvCamSYuYKoFwpp6vMxUo5Bl7Yph52rG2nQo8D2vxKicLN1P7KDb9U72JVpHeqpXj2bTsm6P64DBxFny6178OUhO+8yqFgJ4yPQLwGz7hzm0IFe7afMKraJhd4oD8e4S1UZE4fMy/dLYXVnShHF8Tc+qszdjDBH+kZTnaM2wYEg/kyLcJCP0ljNrmA8ZO88UvCfa4uxjflThP7LnXKtSs=
+  file_glob: true
   file: "build/distributions/Google AutoFactory Support-*.zip"
   on:
     tags: true
