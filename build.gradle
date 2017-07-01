@@ -8,7 +8,7 @@ plugins {
 def isCi = System.env.CI != null
 
 group 'mr.intellij.plugin.autofactory'
-version '0.1.1'
+version '0.2.0'
 
 repositories {
     mavenLocal()
