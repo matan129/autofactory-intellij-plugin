@@ -4,9 +4,12 @@ install: true
 sudo: false
 
 env:
-  - INTELLIJ_VERSION=oldest
-  - INTELLIJ_VERSION=latest
-  - INTELLIJ_VERSION=eap
+  global:
+    - GRADLE_OPTS="-Dorg.gradle.daemon=false"
+  matrix:
+    - INTELLIJ_VERSION=oldest
+    - INTELLIJ_VERSION=latest
+    - INTELLIJ_VERSION=eap
 
 matrix:
   fast_finish: true
