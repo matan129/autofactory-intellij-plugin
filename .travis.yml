@@ -45,3 +45,9 @@ deploy:
   on:
     tags: true
     condition: $INTELLIJ_VERSION = latest
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
