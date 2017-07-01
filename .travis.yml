@@ -42,3 +42,4 @@ deploy:
   file: "build/distributions/Google AutoFactory Support-*.zip"
   on:
     tags: true
+    condition: $INTELLIJ_VERSION = latest
