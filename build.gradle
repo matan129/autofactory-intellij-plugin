@@ -1,21 +1,14 @@
-buildscript {
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
-    }
-}
-
 plugins {
     id 'java'
+    id 'jacoco'
     id 'org.jetbrains.intellij' version '0.2.13'
     id 'net.ltgt.apt' version '0.10'
 }
 
-apply plugin: 'org.junit.platform.gradle.plugin'
-
 def isCi = System.env.CI != null
 
 group 'mr.intellij.plugin.autofactory'
-version '0.1.0'
+version '0.1.1'
 
 repositories {
     mavenLocal()
@@ -42,15 +35,27 @@ intellij {
 }
 
 dependencies {
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    apt "org.projectlombok:lombok:$lombokVersion"
+    compileOnly 'org.projectlombok:lombok:1.16.16'
+    apt 'org.projectlombok:lombok:1.16.16'
 
     compile 'com.google.auto.factory:auto-factory:1.0-beta5'
     compile 'com.google.guava:guava:22.0'
     compile 'com.google.inject:guice:4.1.0'
+    compile 'com.google.code.gson:gson:2.8.1'
 
+    testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.8.0'
     testCompile 'org.mockito:mockito-core:2.8.47'
-    testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testCompile 'org.powermock:powermock-core:1.7.0'
+    testCompile 'org.powermock:powermock-api-mockito2:1.7.0'
+    testCompile 'org.powermock:powermock-module-junit4:1.7.0'
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport

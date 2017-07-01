@@ -1,18 +1,29 @@
 package mr.intellij.plugin.autofactory.inspections.conflicting.constructor;
 
+import com.google.gson.Gson;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.codeInspection.ProblemsHolder;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiIdentifier;
+import com.intellij.psi.PsiMethod;
 import com.intellij.testFramework.fixtures.*;
 import mr.intellij.plugin.autofactory.TestUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -20,7 +31,8 @@ import static org.mockito.Mockito.verify;
 /**
  * Tests for {@link ConflictingConstructorVisitor}.
  */
-class ConflictingConstructorVisitorTest {
+@RunWith(MockitoJUnitRunner.class)
+public class ConflictingConstructorVisitorTest {
 
     private static JavaCodeInsightTestFixture codeInsightFixture;
     private static PsiClass samplePsiClass;
@@ -29,7 +41,7 @@ class ConflictingConstructorVisitorTest {
     @Mock private ProblemsHolder mockProblemsHolder;
     @InjectMocks private ConflictingConstructorVisitor tested;
 
-    @BeforeAll
+    @BeforeClass
     public static void setupClass() throws Exception {
         TestFixtureBuilder<IdeaProjectTestFixture> projectBuilder = IdeaTestFixtureFactory.getFixtureFactory()
                                                                                           .createFixtureBuilder("");
@@ -41,22 +53,30 @@ class ConflictingConstructorVisitorTest {
         samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource("ClassWithConflictingConstructors.java"));
     }
 
-    @AfterAll
+    @AfterClass
     public static void teardownClass() throws Exception {
         codeInsightFixture.tearDown();
     }
 
-    @BeforeEach
-    public void setup() throws Exception {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testVisitClass() {
-        ApplicationManager.getApplication().runReadAction(() -> tested.visitClass(samplePsiClass));
+        final boolean[] run = {false};
 
-        verify(mockProblemsHolder, times(2)).registerProblem(psiElementCaptor.capture(),
-                                                             eq(ConflictingConstructorInspection.DESCRIPTION),
-                                                             eq(ProblemHighlightType.GENERIC_ERROR));
+        ApplicationManager.getApplication().runReadAction(() -> {
+            tested.visitClass(samplePsiClass);
+
+            verify(mockProblemsHolder, times(2)).registerProblem(psiElementCaptor.capture(),
+                                                                 eq(ConflictingConstructorInspection.DESCRIPTION),
+                                                                 eq(ProblemHighlightType.GENERIC_ERROR));
+
+            assertThat(psiElementCaptor.getAllValues())
+                    .containsExactlyElementsOf(Arrays.stream(samplePsiClass.getConstructors())
+                                                     .map(PsiMethod::getNameIdentifier)
+                                                     .collect(Collectors.toList()));
+            run[0] = true;
+        });
+
+        // Sanity check that the read action did run.
+        assertThat(run[0]).isTrue();
     }
 }
