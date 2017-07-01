@@ -6,9 +6,8 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
-import com.intellij.testFramework.fixtures.*;
+import mr.intellij.plugin.autofactory.BaseFixturedTest;
 import mr.intellij.plugin.autofactory.TestUtils;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -31,9 +29,8 @@ import static org.mockito.Mockito.verify;
  * Tests for {@link ConflictingConstructorVisitor}.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ConflictingConstructorVisitorTest {
+public class ConflictingConstructorVisitorTest extends BaseFixturedTest {
 
-    private static JavaCodeInsightTestFixture codeInsightFixture;
     private static PsiClass samplePsiClass;
 
     @Captor private ArgumentCaptor<PsiElement> psiElementCaptor;
@@ -42,20 +39,8 @@ public class ConflictingConstructorVisitorTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        TestFixtureBuilder<IdeaProjectTestFixture> projectBuilder = IdeaTestFixtureFactory.getFixtureFactory()
-                                                                                          .createFixtureBuilder("");
-
-        IdeaProjectTestFixture projectFixture = projectBuilder.getFixture();
-        codeInsightFixture = JavaTestFixtureFactory.getFixtureFactory()
-                                                   .createCodeInsightFixture(projectFixture);
-        codeInsightFixture.setUp();
         samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource(ConflictingConstructorVisitorTest.class,
                                                                             "ClassWithConflictingConstructors.java"));
-    }
-
-    @AfterClass
-    public static void teardownClass() throws Exception {
-        codeInsightFixture.tearDown();
     }
 
     @Test

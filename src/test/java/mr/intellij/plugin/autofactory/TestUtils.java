@@ -3,7 +3,6 @@ package mr.intellij.plugin.autofactory;
 import com.google.common.io.Resources;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.charset.Charset;
 
 public class TestUtils {

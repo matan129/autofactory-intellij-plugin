@@ -2,7 +2,6 @@ package mr.intellij.plugin.autofactory.inspections.misusing;
 
 import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import mr.intellij.plugin.autofactory.inspections.BaseQuickFixTest;
 import mr.intellij.plugin.autofactory.utils.AnnotationUtils;
@@ -17,7 +16,6 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -42,7 +40,7 @@ public class RemoveAutoFactoryFromConstructorQuickFixTest extends BaseQuickFixTe
     @PrepareForTest(AnnotationUtils.class)
     public void testApplyFix() throws Exception {
         when(mockProblemDescriptor.getPsiElement().getParent().getParent()).thenReturn(mockPsiClass);
-        when(mockPsiClass.getConstructors()).thenReturn(new PsiMethod[]{mockPsiMethod, mockPsiMethodWithAutoFactory});
+        when(mockPsiClass.getConstructors()).thenReturn(new PsiMethod[] {mockPsiMethod, mockPsiMethodWithAutoFactory});
 
         mockStatic(AnnotationUtils.class);
         PowerMockito.doReturn(Optional.of(mockPsiAnnotation)).when(AnnotationUtils.class);
