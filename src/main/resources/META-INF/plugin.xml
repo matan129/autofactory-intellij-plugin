@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>mr.intellij.plugin.autofactory</id>
-    <name>Google Autofactory Support</name>
+    <name>Google AutoFactory Support</name>
     <version>0.0.1</version>
     <vendor email="matan129@gmail.com"
             url="https://github.com/matan129/autofactory-intellij-plugin">Matan Rosenberg
@@ -25,5 +25,6 @@
         <codeInsight.lineMarkerProvider language="JAVA"
                                         implementationClass="mr.intellij.plugin.autofactory.line.markers.AutoFactoryLineMarkerProvider"/>
         <lang.psiAugmentProvider implementation="mr.intellij.plugin.autofactory.augment.InjectAugmentProvider"/>
+        <java.elementFinder implementation="mr.intellij.plugin.autofactory.elements.AutoFactoryFinder"/>
     </extensions>
 </idea-plugin>
