@@ -24,6 +24,8 @@ public class AutoFactoryFinder extends PsiElementFinder {
             // TODO support custom named factories
             return null;
         }
+
+        // TODO Need to somehow internally pre-record all the @AutoFactory usages and not use this
         PsiClass annotated = PsiShortNamesCache.getInstance(scope.getProject())
                                                .getClassesByName(qualifiedName.substring(0, qualifiedName.length() - FACTORY_SUFFIX.length()), scope)[0];
         String[] parts;
