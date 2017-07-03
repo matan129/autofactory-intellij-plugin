@@ -39,7 +39,7 @@ public class ConflictingConstructorVisitorTest extends BaseFixturedTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadPackageResource("ClassWithConflictingConstructors.java"));
+        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource("ClassWithConflictingConstructors.java"));
     }
 
     @Test

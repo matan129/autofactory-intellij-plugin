@@ -8,12 +8,12 @@ import java.nio.charset.Charset;
 
 public class TestUtils {
 
-    public static String loadPackageResource(String name) throws IOException {
+    public static String loadResource(String name) throws IOException {
         Class<?> ctx = ReflectionUtil.findCallerClass(2);
         return loadResource(ctx, name);
     }
 
-    private static String loadResource(Class<?> ctx, String name) throws IOException {
+    public static String loadResource(Class<?> ctx, String name) throws IOException {
         return Resources.toString(ctx.getResource(name), Charset.defaultCharset());
     }
 }

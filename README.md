@@ -18,8 +18,8 @@ I'd be even better if you could implement it yourself - contributions are welcom
 
 ### Bugs
 If you encounter a bug while using the plugin, please [open an issue](https://github.com/matan129/autofactory-intellij-plugin/issues/new) and supply the relevant information there: 
- * What caused the bug (for example - click on a specific button)
- * The stacktrace IntelliJ shows.
+ * What caused the bug (for example - clicking on a specific button)
+ * The stacktrace IntelliJ shows
 
 ## CI Status
 Branch | Build | Coverage

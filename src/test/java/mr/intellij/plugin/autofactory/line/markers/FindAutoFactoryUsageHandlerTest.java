@@ -22,8 +22,7 @@ public class FindAutoFactoryUsageHandlerTest extends BaseFixturedTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource(FindAutoFactoryUsageHandlerTest.class,
-                                                                            "Sample.java"));
+        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource("Sample.java"));
     }
 
     @Before
