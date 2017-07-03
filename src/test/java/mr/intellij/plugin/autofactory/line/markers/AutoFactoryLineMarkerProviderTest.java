@@ -22,8 +22,7 @@ public class AutoFactoryLineMarkerProviderTest extends BaseFixturedTest {
 
     @BeforeClass
     public static void setupClass() throws Exception {
-        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadResource(AutoFactoryLineMarkerProviderTest.class,
-                                                                            "Sample.java"));
+        samplePsiClass = codeInsightFixture.addClass(TestUtils.loadPackageResource("Sample.java"));
     }
 
     @Before
