@@ -24,8 +24,8 @@ import java.util.Optional;
  */
 public class AutoFactoryLineMarkerProvider implements LineMarkerProvider {
 
-    private static final Icon GRAY_ICON = IconLoader.getIcon("/icons/gray_factory.png");
-    private static final Icon BLACK_ICON = IconLoader.getIcon("/icons/black_factory.png");
+    private static final Icon GRAY_ICON = IconLoader.getIcon("/gutter/icons/gray_factory.png");
+    private static final Icon BLACK_ICON = IconLoader.getIcon("/gutter/icons/black_factory.png");
     private static final String FACTORY_METHOD_NAME = "create";
     private static final String GENERATED_VALUE_NAME = "value";
 
