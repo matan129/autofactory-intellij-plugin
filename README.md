@@ -22,7 +22,7 @@ If you encounter a bug while using the plugin, please [open an issue](https://gi
  * The stacktrace IntelliJ shows.
 
 ## CI Status
-Branch | Build Status | Coverage
+Branch | Build | Coverage
 ---:|:---:|:---:
 master | [![Travis Status](https://img.shields.io/travis/matan129/autofactory-intellij-plugin/master.svg)](https://travis-ci.org/matan129/autofactory-intellij-plugin) | [![Codecov Master](https://img.shields.io/codecov/c/github/matan129/autofactory-intellij-plugin/master.svg)](https://codecov.io/gh/matan129/autofactory-intellij-plugin)
 develop | [![Travis Status](https://img.shields.io/travis/matan129/autofactory-intellij-plugin/develop.svg)](https://travis-ci.org/matan129/autofactory-intellij-plugin) | [![Codecov Develop](https://img.shields.io/codecov/c/github/matan129/autofactory-intellij-plugin/develop.svg)](https://codecov.io/gh/matan129/autofactory-intellij-plugin)
