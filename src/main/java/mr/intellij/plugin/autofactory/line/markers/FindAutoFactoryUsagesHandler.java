@@ -4,6 +4,7 @@ import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
 import com.intellij.find.actions.ShowUsagesAction;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.util.registry.Registry;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -45,6 +46,13 @@ public class FindAutoFactoryUsagesHandler implements GutterIconNavigationHandler
                                               .startFindUsages(psiMethod,
                                                                new RelativePoint(mouseEvent),
                                                                PsiUtilBase.findEditor(constructor),
-                                                               ShowUsagesAction.USAGES_PAGE_SIZE));
+                                                               getUsagesPageSize()));
+    }
+
+    /**
+     * Backport of {@link ShowUsagesAction#getUsagesPageSize()} present in recent IntelliJ versions, but not in 2016.3.
+     */
+    private static int getUsagesPageSize() {
+        return Math.max(1, Registry.intValue("ide.usages.page.size", 100));
     }
 }
