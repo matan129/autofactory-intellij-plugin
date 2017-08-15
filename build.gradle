@@ -38,7 +38,7 @@ targetCompatibility = '1.8'
 
 def intellijVersions = [
         'oldest': 'IC-2016.3',
-        'latest': 'IC-2017.1',
+        'latest': 'IC-2017.2.1',
         'eap'   : 'LATEST-EAP-SNAPSHOT'
 ]
 
