@@ -45,8 +45,8 @@ class DirectInstantiationVisitor extends JavaElementVisitor {
     /**
      * @return True if the expression was not made in a test and if the instantiated class was not declared in a test
      * file, too.
-     * The rational of this is to allow direct instantiation in tests, but only for classes being tests, and
-     * not classes declared in tests, too.
+     * The rational of this is to allow direct instantiation in tests, but only for classes being tested or
+     * collaborators, and not classes declared in tests, like utils.
      */
     private boolean isRelevant(PsiNewExpression expression, PsiClass instantiatedClass) {
         return !ProjectFilesUtils.isInTestFile(expression) || ProjectFilesUtils.isInTestFile(instantiatedClass);
